@@ -1,0 +1,1 @@
+export default (props) => {return (<h1>Recommended</h1>)}
