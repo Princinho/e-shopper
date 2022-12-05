@@ -7,6 +7,7 @@ import Layout from './Pages/Layout'
 import Shop from './Pages/Shop'
 import Featured from './Pages/Featured'
 import Recommended from './Pages/Recommended'
+import Product from './Pages/Product'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='shop' element={<Shop/>}/>
           <Route path='featured' element={<Featured/>}/>
           <Route path='recommended' element={<Recommended/>}/>
+          <Route path='product/:id' element={<Product/>}/>
         </Route>
       </Routes>
     </div>

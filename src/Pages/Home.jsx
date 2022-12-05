@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import HeroImage from '../assets/girls-in-carts.jpg'
 import ProductCard from "../components/ProductCard";
+import loaderImage from '../assets/loader2.svg'
 const BASE_API = 'https://fakestoreapi.com/'
+const ERROR_MESSAGE = 'Unable to retrieve products, please refresh.'
 export default function Home() {
     const [products, setProducts] = useState([])
+    const [error, setError] = useState(null)
     useEffect(() => {
         const formatter = new Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -12,7 +15,7 @@ export default function Home() {
         });
         fetch(BASE_API + 'products').then(res => res.json())
             .then(result => setProducts(result.map(p => { return { ...p, formattedPrice: formatter.format(p.price) } })))
-            .catch(error => console.error(error))
+            .catch(error => setError(error))
 
         return () => {
 
@@ -37,17 +40,18 @@ export default function Home() {
             <section className="featured-products">
                 <h1 className="section-title">Featured Products</h1>
                 <div className="product-grid-container">
-                    {products.slice(5,9).map(prod => <ProductCard key={prod.id} name={prod.title}
+                    {products.length > 0 ? products.slice(5, 9).map(prod => <Link to={`/product/${prod.id}`} key={prod.id}> <ProductCard  name={prod.title}
                         subtitle={prod.formattedPrice} imageUrl={prod.image}
-                        description={prod.description} />)}
+                        description={prod.description} /></Link>) : <div className="loader-container">{error ? <p>{ERROR_MESSAGE}</p> : <img src={loaderImage} alt="" />}</div>}
                 </div>
+
             </section>
             <section className="recommended-products">
                 <h1 className="section-title">Recommended Products</h1>
                 <div className="product-grid-container">
-                {products.slice(0,5).map(prod => <ProductCard key={prod.id} name={prod.title}
+                    {products.length > 0 ? products.slice(0, 4).map(prod => <ProductCard key={prod.id} name={prod.title}
                         subtitle={prod.formattedPrice} imageUrl={prod.image}
-                        description={prod.description} />)}
+                        description={prod.description} />) : <div className="loader-container">{error ? <p>{ERROR_MESSAGE}</p> : <img src={loaderImage} alt="" />}</div>}
                 </div>
             </section>
         </main>
