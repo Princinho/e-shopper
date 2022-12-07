@@ -1,4 +1,4 @@
-import { useState } from 'react'
+
 import { Route, Routes } from 'react-router-dom'
 import reactLogo from './assets/react.svg'
 import './App.css'
@@ -8,17 +8,20 @@ import Shop from './Pages/Shop'
 import Featured from './Pages/Featured'
 import Recommended from './Pages/Recommended'
 import Product from './Pages/Product'
-
+import useCart from './components/Cart'
+import { useState } from 'react'
 function App() {
+  const cart = useCart()
+  console.log(cart.isOpen())
   return (
-    <div className="App">
+    <div className={`App ${cart.isOpen() ? 'open-cart' : ''}`}>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/" element={<Layout cart={cart} />}>
           <Route index element={<Home />} />
-          <Route path='shop' element={<Shop/>}/>
-          <Route path='featured' element={<Featured/>}/>
-          <Route path='recommended' element={<Recommended/>}/>
-          <Route path='product/:id' element={<Product/>}/>
+          <Route path='shop' element={<Shop />} />
+          <Route path='featured' element={<Featured />} />
+          <Route path='recommended' element={<Recommended />} />
+          <Route path='product/:id' element={<Product cart={cart} />} />
         </Route>
       </Routes>
     </div>

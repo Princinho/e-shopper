@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import bagIcon from '../assets/icon-bag.svg'
-export default (props) => {
+import backIcon from '../assets/icon-back.svg'
+import loaderImage from '../assets/loader2.svg'
+export default ({ cart }) => {
     const [product, setProduct] = useState(null)
     const [quantity, setQuantity] = useState(1)
     const BASE_API = 'https://fakestoreapi.com/products/'
@@ -13,9 +15,9 @@ export default (props) => {
 
         }
     }, [])
-    // if (product) console.log(product)
     return (
         <main className="main-container">
+            <Link to={'/shop'} className='btn btn-imaged btn-back-home'><img src={backIcon} alt="" aria-hidden='true' />Back to shop</Link>
             {product ?
                 <div className="product-sheet">
                     <div className="product-image-container">
@@ -24,24 +26,29 @@ export default (props) => {
                     <div className="product-details">
                         <h1 className="product-name">{product.title}</h1>
                         <p className="product-description">{product.description}</p>
-                        <hr className="separator"/>
+                        <hr className="separator" />
                         <div className="action-buttons">
 
-                        <div className="quantity-selector">
-                            <button className="btn" onClick={() => setQuantity(quantity - 1 > 0 ? quantity - 1 : quantity)}>-</button>
-                            <span className="quantity">{quantity}</span>
-                            <button className="btn" onClick={() => setQuantity(quantity + 1)}>+</button>
-                        </div>
-                        <div className="buy-options">
-                            <button className="btn btn-imaged"><img src={bagIcon} />Add to cart</button>
-                            <button className="btn btn-imaged"><img />Add to wishlist</button>
-                        </div>
+                            <div className="quantity-selector">
+                                <button className="btn" onClick={() => setQuantity(quantity - 1 > 0 ? quantity - 1 : quantity)}>-</button>
+                                <span className="quantity">{quantity}</span>
+                                <button className="btn" onClick={() => setQuantity(quantity + 1)}>+</button>
+                            </div>
+                            <div className="buy-options">
+                                {cart.hasItem(id) ?
+                                    <button className="btn btn-imaged" onClick={() => { cart.remove(id) }}><img src={bagIcon} />Remove from cart</button>
+                                    :
+                                    <button className="btn btn-imaged" onClick={() => { cart.add(product.id, quantity) }}><img src={bagIcon} />Add to cart</button>
+                                }
+                                <button className="btn btn-imaged"><img />Add to wishlist</button>
+                            </div>
                         </div>
 
                     </div>
                 </div>
                 :
-                <p>loading...</p>}
+                <div style={{ display: 'grid', placeContent: 'center' }}><img style={{ width: '50%', margin: '0 auto' }} src={loaderImage} alt="" /></div>
+            }
 
         </main>
     )
