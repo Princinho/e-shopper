@@ -45,7 +45,7 @@ export default ({ cart }) => {
                         </div>
                         <div className="cart-buttons-wrapper">
                             <button className="btn btn-close-cart" onClick={() => { cart.toggle() }}><img src={backIcon} /></button>
-                            <button className="btn btn-clear-basket" onClick={()=>cart.reset(0)}>Clear basket</button>
+                            <button className="btn btn-clear-basket" onClick={() => cart.reset(0)}>Clear basket</button>
                         </div>
                     </header>
                     <ul className="cart-items">
@@ -80,6 +80,25 @@ export default ({ cart }) => {
                             })}
 
                     </ul>
+                    <div className="cart-footer">
+                        <div className="cart-total-wrapper">
+                            <span className="cart-total-label">Total amount</span> <span> </span>
+                            <span className="cart-total-value">
+                                {cart.getAllItems()
+                                    .map(item => (
+                                        {
+                                            quantity: item.quantity,
+                                            product: products?.find(p => p.id == item.id)
+                                        })).reduce((prev, current) => {
+                                            return prev + (current.quantity * current.product.price)
+                                        }, 0).toFixed(2)
+                                }
+                            </span>
+                        </div>
+                        <button className="btn-cart-checkout">
+                            Checkout
+                        </button>
+                    </div>
                 </div>
             </section>
         </>)
