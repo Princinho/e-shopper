@@ -240,11 +240,12 @@ nav li:hover a {
 
 .cart {
   background-color: white;
-  width: min(500px, 100vw);
+  width: min(400px, 100vw);
   height: 100%;
   margin-left: auto;
   padding-inline: 1rem;
 }
+
 .App.open-cart {
   max-height: 100vh;
   overflow: hidden;
@@ -257,30 +258,104 @@ nav li:hover a {
 .App.open-cart .cart-wrapper {
   right: 0;
 }
-.cart-header{
+
+.cart-header {
   display: flex;
   justify-content: space-between;
   padding-block: 1rem;
 }
-.cart-title{
+
+.cart-title {
   margin: 0;
 }
-.cart-title-wrapper{
+
+.cart-title-wrapper {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
-.cart-buttons-wrapper{
+
+.cart-buttons-wrapper {
   display: flex;
   gap: 1rem;
 }
-.btn-clear-basket,.btn-close-cart{
+.cart-items{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-left: 0rem;
+}
+.cart-item {
+  border-right: 1px solid #093D65c3;
+  border-block: 1px solid #093D65c3;
+  display: flex;
+  max-height: 10rem;
+  align-items: stretch;
+}
+
+.cart-item-quantity-selector {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  min-height: 100%;
+  /* border: 1px solid blue; */
+}
+
+.cart-item-title {
+  display: block;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.cart-item-image {
+  width: 25%;
+  margin-inline: 1rem;
+  min-height: 120px;
+  object-fit: contain;
+}
+
+.btn-cart {
+  background-color: transparent;
+  border: 1px solid #093D65c3;
+}
+
+.btn-remove-cart-item {
+  margin-left: auto;
+  min-width: 2rem;
+  border: none;
+  border-left: 1px solid #093D65c3;
+  font-weight: bold;
+  color: #093D65;
+}
+.btn-remove-cart-item:hover{
+  cursor: pointer;
+  color: white;
+  background-color: #093D65;
+}
+
+.cart-item-quantity-selector button {
+  justify-self: stretch;
+  flex: 1;
+  display: inline-block;
+  border: 1px solid #093D65c3;
+  background-color: transparent;
+
+}
+
+.cart-item-quantity-label {
+  font-family: 'Libre Franklin';
+}
+
+.cart-item img {}
+
+.btn-clear-basket,
+.btn-close-cart {
   padding: 0;
   min-height: 2rem;
-  padding-inline:2rem;
+  padding-inline: 2rem;
   background: transparent;
   border: 1px solid #093D65c3;
-  
+
 }
 
 .btn-back-home {
@@ -326,7 +401,7 @@ nav li:hover a {
   /* justify-content: center; */
   /* flex-wrap: wrap; */
   grid-template-columns: repeat(auto-fill, minmax(280px, 350px));
-  
+
 }
 
 .product-card {
@@ -382,6 +457,18 @@ nav li:hover a {
 .product-card .product-description {
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-2{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-1{
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

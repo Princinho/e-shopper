@@ -2,10 +2,12 @@ import { NavLink } from "react-router-dom"
 import logo from '../assets/logo-color-on-transparent.svg'
 import bagIcon from '../assets/handbag-line.svg'
 import backIcon from '../assets/icon-back.svg'
+import useProductsManager from "./useProductsManager"
 export default ({ cart }) => {
     function hideNav() {
         console.log('hiding navigation')
     }
+    const { products } = useProductsManager()
     return (
         <>
 
@@ -43,15 +45,40 @@ export default ({ cart }) => {
                         </div>
                         <div className="cart-buttons-wrapper">
                             <button className="btn btn-close-cart" onClick={() => { cart.toggle() }}><img src={backIcon} /></button>
-                            <button className="btn btn-clear-basket">Clear basket</button>
+                            <button className="btn btn-clear-basket" onClick={()=>cart.reset(0)}>Clear basket</button>
                         </div>
                     </header>
                     <ul className="cart-items">
                         {cart.getAllItems()
-                        .map(item=>item.name)}
-                        <li className="cart-item">
-                            <span></span>
-                        </li>
+                            .map(item => {
+                                const product = products?.find(p => p.id == item.id)
+                                console.log(item)
+                                console.log(product)
+                                return (
+                                    <li className="cart-item">
+                                        <div className="cart-item-quantity-selector">
+                                            <button className="btn-cart" onClick={() => cart.increaseQuantity(item.id)}>+</button>
+                                            <button className="btn-cart" onClick={() => cart.decreaseQuantity(item.id)}>-</button>
+                                        </div>
+                                        <img className="cart-item-image" src={product?.image} />
+                                        <div style={{ display: 'grid', placeContent: 'center' }}>
+                                            <div>
+                                                <span className="cart-item-title line-clamp-2" key={item.id}>{product.title}</span>
+                                                <span className="cart-item-quantity-label">Quantity: </span><span className="cart-item-quantity">{item.quantity}</span>
+                                                {' | '}
+                                                <span>Price: {product.price}</span>
+                                                <hr />
+                                                <span>Total: {product.price * item.quantity}</span>
+                                            </div>
+                                        </div>
+                                        <button className="btn-remove-cart-item btn-cart"
+                                            onClick={() => cart.remove(item.id)}>
+                                            X
+                                        </button>
+                                    </li>
+                                )
+                            })}
+
                     </ul>
                 </div>
             </section>
