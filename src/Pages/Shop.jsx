@@ -1,11 +1,14 @@
+import ShopProductCard from "../components/ShopProductCard"
 import useProductsManager from "../components/useProductsManager"
 
-export default (props) => {
+export default ({ cart }) => {
     const { products, error } = useProductsManager()
     return (
         <main className="main-container">
-            <div><h1>Shop</h1></div>
-            {products?.map(product => <h3>{product.title}</h3>)}
+
+            <div className="shop-product-grid">
+                {products?.map(product => <ShopProductCard cart={cart} product={product} />)}
+            </div>
         </main>
     )
 }
