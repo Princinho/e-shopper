@@ -28,12 +28,11 @@ export default function Home() {
         <main className="main-container">
             <section className="hero">
                 <div className="hero-text-container">
-                    <h1>Feel good while shopping</h1>
-                    <p>Blasitas. asdscsoadifa sa sodifasdi asodijfasidjf oasidfasdifoas.
-                        Apoirsasid dfasdo reghhgaoiue oaieof oaidhofboaisd, oaisdfoia, aoisdjfasdjfa.
-                        Aioiwea owaioidoaiu reowi asasdij raoie aosiadao irjoaijoij adhgaoi eiaoiroaie!
+                    <h1>Welcome to Es-hopper!</h1>
+                    <p style={{ lineHeight: '1.5', wordSpacing: '.5em', fontSize: "1.1em" }}>
+                        Discover a curated blend of fashion and cutting-edge tech. Elevate your everyday with our handpicked collection designed for the modern individual. 
                     </p>
-                    <Link to={'/shop'} className='btn btn-dark btn-shop-now'>Shop Now</Link>
+                    <Link to={'/shop'} className='btn btn-dark btn-shop-now'>Explore now!</Link>
                 </div>
                 <div className="hero-image-container">
                     <img src={HeroImage} className='hero-image' />
